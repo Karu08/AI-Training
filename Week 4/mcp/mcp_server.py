@@ -11,7 +11,7 @@ SCOPES = [
 ]
 
 creds = service_account.Credentials.from_service_account_file(
-    "service_account.json", scopes=SCOPES
+    "credentials/service_account.json", scopes=SCOPES
 )
 
 FOLDER_ID = "1AbCDefGhIJkLmNoPQRstuVwxyz"
