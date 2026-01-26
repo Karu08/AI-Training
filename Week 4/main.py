@@ -1,26 +1,15 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_aws import ChatBedrockConverse
-from langchain.agents import initialize_agent, AgentType
 from langchain.tools import Tool
-from dotenv import load_dotenv
-import os
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 from langchain.prompts import ChatPromptTemplate
-
 
 from tools.rag import hr_policy_rag
 from tools.websearch import web_search
 from mcp.mcp_client import load_mcp_tools
 
-# load_dotenv()
-# GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
 
 mcp_tools = load_mcp_tools()
 
-# llm = ChatGoogleGenerativeAI(
-#     model="gemini-1.5-flash",
-#     temperature=0.3
-# )
 
 llm = ChatBedrockConverse(
     model_id="anthropic.claude-3-sonnet-20240229-v1:0",
@@ -30,7 +19,7 @@ llm = ChatBedrockConverse(
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", """
-You are an internal research assistant for Presidio.
+You are an internal research assistant for XYZ Company.
 
 You have access to the following tools:
 - HR_Policy_RAG: answers questions from HR policy documents
@@ -48,8 +37,6 @@ RULES:
 ])
 
 
-
-
 tools = [
     Tool(
         name="HR_Policy_RAG",
@@ -64,12 +51,6 @@ tools = [
     *mcp_tools
 ]
 
-# agent = initialize_agent(
-#     tools=tools,
-#     llm=llm,
-#     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-#     verbose=False
-# )
 
 agent = create_tool_calling_agent(
     llm=llm,

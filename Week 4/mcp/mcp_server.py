@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+import re
 
 app = FastAPI(title="MCP Server")
 
@@ -14,7 +15,7 @@ creds = service_account.Credentials.from_service_account_file(
     "credentials/service_account.json", scopes=SCOPES
 )
 
-FOLDER_ID = "1AbCDefGhIJkLmNoPQRstuVwxyz"
+FOLDER_ID = "1dItMGOzlnxQBG7ZNfJyK8JkJbVLLt2rH"
 
 drive_service = build("drive", "v3", credentials=creds)
 docs_service = build("docs", "v1", credentials=creds)
@@ -31,12 +32,17 @@ def list_tools():
         ]
     }
 
+
+def normalize(text: str) -> str:
+    return re.sub(r"[^a-z0-9 ]+", " ", text.lower())
+
+
 @app.post("/tools/google_docs_search/invoke")
 def invoke_google_docs(req: ToolRequest):
     keyword = req.input.lower()
 
     results = drive_service.files().list(
-        q=f"'{FOLDER_ID}' in parents and mimeType='application/vnd.google-apps.document'",
+        q = f"'{FOLDER_ID}' in parents and mimeType='application/vnd.google-apps.document'",
         pageSize=10,
         fields="files(id, name)"
     ).execute()
@@ -59,10 +65,18 @@ def invoke_google_docs(req: ToolRequest):
                     if text_run:
                         content += text_run.get("content", "")
 
-        if keyword in content.lower():
+        content_n = normalize(content)
+        name_n = normalize(file["name"])
+        keyword_n = normalize(keyword)
+
+        combined = name_n + " " + content_n
+        words = keyword_n.split()
+
+        if all(word in combined for word in words):
             matched_docs.append(
-                f"{file['name']}\n{content}"
+                f"{file['name']}\n{content[:800]}"
             )
+
 
     if not matched_docs:
         return {
