@@ -1,0 +1,40 @@
+FINANCE POLICY of NemoCompany
+
+1. EXPENSE REIMBURSEMENT
+Employees may claim reimbursement for business-related expenses.
+Eligible expenses include:
+- Travel expenses
+- Meals during business travel
+- Office supplies
+All reimbursement claims must:
+- Include valid receipts
+- Be submitted within 30 days of the expense
+Reimbursements are processed within 10 business days after approval.
+
+2. PAYROLL PROCESSING
+Payroll is processed on the 28th of every month.
+If the 28th falls on a weekend or holiday, payroll will be processed on the previous business day.
+Salary slips are available in the payroll portal.
+
+3. BUDGET REPORTS
+Monthly and quarterly budget reports are maintained by the finance team.
+Reports can be accessed through the company’s SharePoint finance folder.
+Access requests must be approved by the finance manager.
+
+4. TAX DEDUCTIONS
+Statutory deductions include:
+- Income tax
+- Provident fund contributions
+- Professional tax (if applicable)
+Employees can download tax statements from the payroll system.
+
+5. ADVANCES & LOANS
+Employees may request salary advances or loans.
+Requests must be approved by:
+- Reporting manager
+- Finance department
+Repayment schedules will be communicated upon approval.
+
+6. FINANCE CONTACT
+All finance-related queries should be submitted via the finance helpdesk portal.
+Urgent payroll issues should be flagged as “Payroll Priority.”

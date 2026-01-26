@@ -1,0 +1,46 @@
+IT SUPPORT of NemoCompany
+
+1. VPN ACCESS
+Employees must use the Cisco AnyConnect VPN to access internal systems remotely.
+VPN access is available only to full-time employees and approved contractors.
+If VPN access fails:
+- Restart the VPN client
+- Check internet connectivity
+- Contact IT support via the helpdesk portal
+
+2. APPROVED SOFTWARE
+Only approved software may be installed on company devices.
+Approved software includes:
+- Microsoft Office (Word, Excel, PowerPoint)
+- Visual Studio Code
+- IntelliJ IDEA
+- Slack
+- Zoom
+- Google Chrome
+Requests for unapproved software must be submitted through the IT request system and require manager approval.
+
+3. HARDWARE REQUESTS
+Employees may request new hardware such as laptops, monitors, keyboards, and mice.
+Laptop requests require:
+- Manager approval
+- Completion of the hardware request form
+Standard laptop delivery time is 5–7 business days.
+
+4. PASSWORD & SECURITY POLICY
+Passwords must:
+- Be at least 12 characters long
+- Include uppercase, lowercase, numbers, and symbols
+Passwords must be changed every 90 days.
+Sharing passwords is strictly prohibited.
+
+5. EMAIL & COMMUNICATION TOOLS
+Employees must use company email accounts for all official communication.
+Personal email accounts must not be used for sharing company data.
+
+6. SOFTWARE UPDATES
+All company devices must have automatic updates enabled.
+Employees should not disable antivirus or endpoint protection software.
+
+7. IT SUPPORT CONTACT
+For IT issues, submit a ticket through the IT Helpdesk Portal.
+Critical issues should be marked as “High Priority.”
