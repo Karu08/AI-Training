@@ -5,6 +5,7 @@ from langfuse import Langfuse
 from langfuse.types import TraceContext
 import time
 import os
+from guardrails import Guard
 
 load_dotenv()
 langfuse = Langfuse(
@@ -56,16 +57,13 @@ while True:
         input={"user_query": user_input}
     ) as root_span:
 
-        # You can optionally propagate user/session attributes too
         root_span.update_trace(
             user_id="user_local",
             session_id="session_local"
         )
 
-        # Log start time
         start = time.time()
 
-        # Tool call span
         with langfuse.start_as_current_span(name="calculator-tool", input={"expression": user_input}):
             tool_output = None
             try:

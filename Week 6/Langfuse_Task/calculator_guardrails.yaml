@@ -1,0 +1,16 @@
+version: 1
+name: calculator-agent
+
+instructions:
+  - name: input
+    type: text
+    required: true
+  - name: operation
+    type: enum
+    values: ["add", "subtract", "multiply", "divide"]
+    required: false
+
+output:
+  type: text
+  constraints:
+    - must_contain: "Answer:"
