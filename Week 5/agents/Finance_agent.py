@@ -1,32 +1,55 @@
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_aws import ChatBedrockConverse
-from langchain.chains import RetrievalQA
-from langchain_community.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
-from web_tools.websearch import web_search
+from Tools.Finance_tool import search_Finance_docs
+from Tools.Finance_tool import web_search
+from langchain.tools import Tool
 
 
-def Finance_Agent(query: str):
-    llm = ChatBedrockConverse(
-        model_id="anthropic.claude-3-sonnet-20240229-v1:0",
-        region_name="us-east-1",
-        temperature=0.3
+llm = ChatBedrockConverse(
+    model_id="anthropic.claude-3-sonnet-20240229-v1:0",
+    region_name="us-east-1",
+    temperature=0.3
+)
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system",
+     "You are a Finance support agent. "
+     "Use internal finance documents first. "
+     "Use web search only if needed. "
+     "Return a clear, concise final answer."),
+    ("human", "{input}"),
+    MessagesPlaceholder(variable_name="agent_scratchpad")
+])
+
+
+tools = [
+    Tool(
+        name="Finance_Policy_RAG",
+        func=search_Finance_docs,
+        description="Answer HR policy questions from internal PDF documents"
+    ),
+    Tool(
+        name="Web_Search",
+        func=web_search,
+        description="Search the web for trends and benchmarks"
     )
+]
 
-    vectordb = Chroma(
-        persist_directory="chroma_Finance",
-        embedding_function = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+agent = create_tool_calling_agent(
+    llm=llm,
+    tools=tools,
+    prompt=prompt
+)
 
-    )
+finance_agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    verbose=True,
+    return_intermediate_steps=False
+)
 
-    retriever = vectordb.as_retriever()
-    qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
-    ans = qa_chain.run(query)
-
-    if len(ans.strip()) < 30 or "no information" in ans.lower() or "not mentioned" in ans.lower() or "not provided" in ans.lower():
-        web_results = web_search(query)
-        return f"{ans}\n\nWeb Results:\n{web_results}"
-
-    return ans
-
-
+def Finance_Agent(query: str) -> str:
+    result = finance_agent_executor.invoke({"input": query})
+    return result["output"]
 

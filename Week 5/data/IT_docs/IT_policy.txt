@@ -1,4 +1,4 @@
-IT SUPPORT of NemoCompany
+IT SUPPORT
 
 1. VPN ACCESS
 Employees must use the Cisco AnyConnect VPN to access internal systems remotely.
