@@ -9,6 +9,7 @@ class SupportState(dict):
 def supervisor_node(state):
     category = supervisor_agent(state["query"])
     state["category"] = category
+    print("\nState: ",state)
     return state
 
 def it_node(state):

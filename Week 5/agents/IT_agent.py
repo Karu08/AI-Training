@@ -23,7 +23,7 @@ RULES:
 - Do NOT explain policies.
 - Do NOT mention documents, policies, or sources.
 - Do NOT add qualifiers or commentary.
-- Return only the final answer.
+- Return **only the final answer**.
 """),
     ("human", "{input}"),
     ("human", "{input}"),
@@ -35,7 +35,7 @@ tools = [
     Tool(
         name="IT_Policy_RAG",
         func=search_IT_docs,
-        description="Answer IT policy questions from internal PDF documents"
+        description="Answer IT policy questions from internal documents"
     ),
     Tool(
         name="Web_Search",

@@ -35,7 +35,6 @@ def search_IT_docs(query: str)->str:
     return ans
 
 
-
 def web_search(query:str)->str:
     """
     Does a web search to return results for general user queries

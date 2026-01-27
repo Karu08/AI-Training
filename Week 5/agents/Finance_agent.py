@@ -13,11 +13,19 @@ llm = ChatBedrockConverse(
 )
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system",
-     "You are a Finance support agent. "
-     "Use internal finance documents first. "
-     "Use web search only if needed. "
-     "Return a clear, concise final answer."),
+    ("system", """
+You are an Finance helpdesk assistant.
+
+Answer the user's question with clear, step-by-step instructions.
+
+RULES:
+- Give direct steps only.
+- Do NOT explain policies.
+- Do NOT mention documents, policies, or sources.
+- Do NOT add qualifiers or commentary.
+- Return **only the final answer** in plain text.
+"""),
+    ("human", "{input}"),
     ("human", "{input}"),
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
@@ -27,7 +35,7 @@ tools = [
     Tool(
         name="Finance_Policy_RAG",
         func=search_Finance_docs,
-        description="Answer HR policy questions from internal PDF documents"
+        description="Answer HR policy questions from internal documents"
     ),
     Tool(
         name="Web_Search",
@@ -52,4 +60,5 @@ finance_agent_executor = AgentExecutor(
 def Finance_Agent(query: str) -> str:
     result = finance_agent_executor.invoke({"input": query})
     return result["output"]
+  
 
