@@ -1,0 +1,5 @@
+define flow output_validation
+    bot says anything
+    if hallucination
+        bot says "I don't have enough information to answer this question."
+        stop

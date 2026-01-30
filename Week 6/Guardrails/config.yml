@@ -1,0 +1,15 @@
+models:
+  - type: main
+    engine: ollama
+    model: llama3
+
+rails:
+  input:
+    flows:
+      - content_safety_check            # to ensure that user query does not have any illegal content
+      - prompt_injection_check          # to ensure that user query does not override system prompt
+      - it_domain_check                 # to ensure that only IT related queries are answered by the model
+
+  output:
+    flows:
+      - output_validation

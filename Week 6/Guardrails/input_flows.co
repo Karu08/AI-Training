@@ -1,0 +1,17 @@
+define flow content_safety_check
+    user says something
+    if "hack" in user.message or "illegal" in user.message or "bypass" in user.message
+        bot says "I can’t help with that request."
+        stop
+
+define flow prompt_injection_check
+    user says something
+    if "ignore previous instructions" in user.message
+        bot says "I can’t follow that instruction."
+        stop
+
+define flow it_domain_check
+    user says something
+    if not ("vpn" in user.message or "software" in user.message or "laptop" in user.message)
+        bot says "I can answer only IT-related questions."
+        stop
